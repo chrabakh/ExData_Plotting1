@@ -4,7 +4,7 @@ if(!file.exists(datafile)){
 temp<-tempfile();
 download.file("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip",temp,"curl");
 
-unz(temp,datafile);
+unzip(temp,datafile);
 unlink(temp);
 }
 powerdf<-read.csv("household_power_consumption.txt",header=TRUE,sep=";");
@@ -19,11 +19,12 @@ pdfeb12[,8]<-as.numeric(levels(pdfeb12[,8]))[pdfeb12[,8]];
 #plot active Date by submetering 1,2 and 3 
 xrange<-range(pdfeb12$Date);
 yrange<-range(pdfeb12$Sub_metering_1);
+png("plot3.png",width=504,height=504);
 plot(xrange,yrange,type="n",xlab="",ylab="Energy sub mertering");
 lines(pdfeb12$Date,pdfeb12$Sub_metering_3, type="l", col="blue");
 lines(pdfeb12$Date,pdfeb12$Sub_metering_2, type="l", col="red");
 lines(pdfeb12$Date,pdfeb12$Sub_metering_1, type="l", col="black");
 legend("topright",legend=names(pdfeb12)[7:9], col=c("blue","red","black"), lty=c(1,1,1));
 
-dev.copy(png,"plot3.png");
+#dev.copy(png,"plot3.png");
 dev.off();
