@@ -7,7 +7,9 @@ download.file("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_p
 unz(temp,datafile);
 unlink(temp);
 }
+#Read file
 powerdf<-read.csv("household_power_consumption.txt",header=TRUE,sep=";");
+#filter by feb 1,2 
 powerdf[,1]<-as.Date(powerdf[,1], "%d/%m/%Y");
 pdfeb12<-subset(powerdf,(Date=="2007-02-01") | (Date=="2007-02-02"));
 #replace Date col by POSIXct for Date and Time values
